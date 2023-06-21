@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar'
 import { Text } from 'react-native'
+import * as React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { ThemeProvider } from 'styled-components'
 import {
@@ -24,6 +27,7 @@ import {
   Poppins_900Black_Italic
 } from '@expo-google-fonts/poppins'
 import theme from './src/theme'
+import { Maps, Login } from './src/pages'
 
 export default function App(): JSX.Element {
   const [fontLoaded] = useFonts({
@@ -47,10 +51,21 @@ export default function App(): JSX.Element {
     Poppins_900Black_Italic
   })
 
+  const Stack = createStackNavigator()
+
   return (
     <ThemeProvider theme={theme}>
       {fontLoaded
         ? <>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{
+              headerShown: false
+            }}>
+              <Stack.Screen name="Home" component={Maps} />
+              <Stack.Screen name="About" component={Login} />
+              <Stack.Screen name="Contact" component={Maps} />
+            </Stack.Navigator>
+          </NavigationContainer>
         </>
         : <Text>Loading</Text>}
       <StatusBar backgroundColor='transparent' translucent />

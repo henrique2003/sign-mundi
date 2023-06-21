@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
+
+import { ThemeProvider } from 'styled-components'
 import {
   useFonts,
   Poppins_400Regular,
@@ -21,6 +23,7 @@ import {
   Poppins_900Black,
   Poppins_900Black_Italic
 } from '@expo-google-fonts/poppins'
+import theme from './src/theme'
 
 export default function App(): JSX.Element {
   const [fontLoaded] = useFonts({
@@ -45,12 +48,12 @@ export default function App(): JSX.Element {
   })
 
   return (
-    <View>
+    <ThemeProvider theme={theme}>
       {fontLoaded
         ? <>
         </>
         : <Text>Loading</Text>}
       <StatusBar backgroundColor='transparent' translucent />
-    </View>
+    </ThemeProvider>
   )
 }

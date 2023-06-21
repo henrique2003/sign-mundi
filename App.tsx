@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import { Text, View } from 'react-native'
 import {
   useFonts,
   Poppins_400Regular,
@@ -20,9 +20,9 @@ import {
   Poppins_800ExtraBold_Italic,
   Poppins_900Black,
   Poppins_900Black_Italic
-} from '@expo-google-fonts/poppins';
+} from '@expo-google-fonts/poppins'
 
-export default function App() {
+export default function App(): JSX.Element {
   const [fontLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_100Thin,
@@ -52,5 +52,5 @@ export default function App() {
         : <Text>Loading</Text>}
       <StatusBar backgroundColor='transparent' translucent />
     </View>
-  );
+  )
 }

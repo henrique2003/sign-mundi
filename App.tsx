@@ -62,7 +62,7 @@ export default function App(): JSX.Element {
               headerShown: false
             }}>
               <Stack.Screen name="Home" component={Maps} />
-              <Stack.Screen name="About" component={Login} />
+              <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Contact" component={Maps} />
             </Stack.Navigator>
           </NavigationContainer>

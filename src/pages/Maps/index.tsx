@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react'
 import { PROVIDER_GOOGLE } from 'react-native-maps'
 import Feather from 'react-native-vector-icons/Feather'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import { Container, ListButton, MapContainer } from './styles'
+import { Container, ListButton, MapContainer, LoginButton } from './styles'
 import locationsMock from '../../mocks/locations'
 import { type ILocation, MapMarker, VideoCountryModal, ListModal } from '../../components'
 
-const Maps: React.FC = () => {
+interface Props {
+  navigation: {
+    navigate: (route: string) => void
+  }
+}
+
+const Maps: React.FC<Props> = ({
+  navigation
+}) => {
   const [locations, setLocations] = useState<ILocation[]>([])
   const [videoModalVisible, setVideoModalVisible] = useState(false)
   const [listModalVisible, setListModalVisible] = useState(false)
@@ -77,6 +86,14 @@ const Maps: React.FC = () => {
         handleCloseModal={handleCloseListModal}
         handleOpenVideo={handleOpenVideo}
       />
+      <LoginButton
+        activeOpacity={0.8}
+        onPress={() => {
+          navigation.navigate('Login')
+        }}
+      >
+        <MaterialIcons name="admin-panel-settings" size={30} color="rgba(0,0,0,0.8)" />
+      </LoginButton>
     </Container>
   )
 }

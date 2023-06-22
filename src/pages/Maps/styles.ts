@@ -21,3 +21,16 @@ export const ListButton = styled.TouchableOpacity`
   right: 20px;
   z-index: 2;
 `
+
+export const LoginButton = styled.TouchableOpacity`
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+`

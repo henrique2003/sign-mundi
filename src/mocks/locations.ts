@@ -8,7 +8,7 @@ export default [
   },
   {
     title: 'Bolivia',
-    link: 'https://www.youtube.com/watch?v=e-_o0aZJ5OA&ab_channel=CortesdoInteligência%5BOFICIAL%5D',
+    link: 'https://www.youtube.com/watch?v=TTpbdPWLdpU&ab_channel=BattleMusic',
     image: 'https://imgcloud.com.br/share/iD6aUgkEW1Q0ukks',
     lati: '-17.7567122',
     long: '-64.3419807'

@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useWindowDimensions, Modal } from 'react-native'
 import { PROVIDER_GOOGLE } from 'react-native-maps'
-import Icon from 'react-native-vector-icons/AntDesign'
 
-import { Container, MapContainer, Close, Video, Title, Content } from './styles'
+import { Container, MapContainer } from './styles'
 import locationsMock from '../../mocks/locations'
-import MapMarker, { type ILocation } from '../../components/MapMarker'
+import { type ILocation, MapMarker, VideoCountryModal } from '../../components'
 
 const Maps: React.FC = () => {
   const [locations, setLocations] = useState<ILocation[]>([])
-  const [modalVisible, setModalVisible] = useState(true)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [currentLocation, setCurrentLocation] = useState<ILocation>({
+    image: '',
+    lati: '',
+    link: '',
+    long: '',
+    title: ''
+  })
 
   useEffect(() => {
     function loadLocations(): void {
@@ -19,10 +24,13 @@ const Maps: React.FC = () => {
     loadLocations()
   }, [])
 
-  const { width } = useWindowDimensions()
-
   function openModal(location: ILocation): void {
     setModalVisible(true)
+    setCurrentLocation(location)
+  }
+
+  function handleCloseModal(): void {
+    setModalVisible(false)
   }
 
   return (
@@ -40,24 +48,11 @@ const Maps: React.FC = () => {
             location={location} />
         ))}
       </MapContainer>
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}>
-        <Content>
-          <Close
-            onPress={() => setModalVisible(false)}
-          >
-            <Icon size={30} color="rgba(0,0,0,0.8)" name="close" />
-          </Close>
-          <Title>Portugal</Title>
-          <Video
-            videoId="0GOUF8vNqzE"
-            height={230}
-            width={width}
-          />
-        </Content>
-      </Modal>
+      <VideoCountryModal
+        location={currentLocation}
+        modalVisible={modalVisible}
+        handleCloseModal={handleCloseModal}
+      />
     </Container>
   )
 }

@@ -1,8 +1,9 @@
-import { useWindowDimensions, Modal } from 'react-native'
+import { useWindowDimensions, Modal, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import { Close, Video, Title, Content } from './styles'
 import { type ILocation } from '../../MapMarker'
+import { useState } from 'react'
 
 interface Props {
   location: ILocation
@@ -17,13 +18,15 @@ const VideoCountryModal: React.FC<Props> = ({
 }) => {
   const { title, link } = location
 
-  const { width } = useWindowDimensions()
+  const [videoReady, setVideoReady] = useState(false)
+
+  const { width, height } = useWindowDimensions()
 
   function getVideoId(link: string): string {
+    if (link.length === 0) return ''
+
     const [, part] = link.split('=')
     const [videoId] = part.split('&')
-
-    console.log(videoId)
 
     return videoId
   }
@@ -42,9 +45,11 @@ const VideoCountryModal: React.FC<Props> = ({
         <Title>{title}</Title>
         <Video
           videoId={getVideoId(link)}
-          height={230}
-          width={width}
+          height={videoReady ? height < width ? height / 1.3 : height / 2 : 0}
+          width={width / 1 - 30}
+          onReady={() => setVideoReady(true)}
         />
+        {!videoReady && <ActivityIndicator color="rgba(0,0,0,0.8)" />}
       </Content>
     </Modal>
   )

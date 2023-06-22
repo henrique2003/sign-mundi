@@ -21,7 +21,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "googleMaps": {
+        "apiKey": "AIzaSyA6nVrcEeSpUdtcLxWRCGBHZ6yYOZKLMCQ"
+      },
+      "package": "com.company.mapamundilibras"
     },
     "web": {
       "favicon": "./assets/favicon.png"

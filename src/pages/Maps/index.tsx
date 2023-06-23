@@ -4,8 +4,8 @@ import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { Container, ListButton, MapContainer, LoginButton } from './styles'
-import locationsMock from '../../mocks/locations'
 import { type ILocation, MapMarker, VideoCountryModal, ListModal } from '../../components'
+import api from '../../services/api'
 
 interface Props {
   navigation: {
@@ -28,11 +28,16 @@ const Maps: React.FC<Props> = ({
   })
 
   useEffect(() => {
-    function loadLocations(): void {
-      setLocations(locationsMock)
+    async function loadLocations(): Promise<void> {
+      try {
+        const { data } = await api.get('/locations')
+        setLocations(data.locations)
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    loadLocations()
+    void loadLocations()
   }, [])
 
   function openVideoModal(location: ILocation): void {

@@ -1,17 +1,18 @@
+import { type StackNavigationProp } from '@react-navigation/stack'
+import { type RootStackParamList } from '../../../App'
 import { useEffect, useState } from 'react'
 import { PROVIDER_GOOGLE } from 'react-native-maps'
 import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { requestForegroundPermissionsAsync } from 'expo-location'
 
 import { Container, ListButton, MapContainer, LoginButton } from './styles'
 import { type ILocation, MapMarker, VideoCountryModal, ListModal, ConnectionErrorModal } from '../../components'
 import api from '../../services/api'
 
+type MapsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
+
 interface Props {
-  navigation: {
-    navigate: (route: string) => void
-  }
+  navigation: MapsScreenNavigationProp
 }
 
 const Maps: React.FC<Props> = ({
@@ -47,14 +48,6 @@ const Maps: React.FC<Props> = ({
       }
     }
 
-    async function getPermission(): Promise<void | null> {
-      const { status } = await requestForegroundPermissionsAsync()
-      if (status !== 'granted') {
-        return null
-      }
-    }
-
-    void getPermission()
     void loadLocations()
   }, [])
 

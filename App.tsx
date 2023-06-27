@@ -35,7 +35,7 @@ import { type ILocation } from './src/components'
 export type RootStackParamList = {
   Home: undefined
   Login: undefined
-  Dasboard: undefined
+  Admin: { location: ILocation } | undefined
   Country: { location: ILocation }
 }
 
@@ -73,7 +73,7 @@ export default function App(): JSX.Element {
             }}>
               <Stack.Screen name="Home" component={Maps} />
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Dasboard" component={Admin} />
+              <Stack.Screen name="Admin" component={Admin} />
               <Stack.Screen name="Country" component={Country} />
             </Stack.Navigator>
           </NavigationContainer>

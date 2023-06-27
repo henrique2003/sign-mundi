@@ -19,15 +19,20 @@ export const GoBackText = styled.Text`
   font-family: 'Poppins_600SemiBold';
 `
 
+export const Content = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
+
 export const ImageContainer = styled.View`
   width: 150px;
   height: 150px;
-  max-height: 150px;
-  align-self: center;
   padding: 3px;
   border-radius: 100px;
   background-color: rgba(0,0,0,0.2);
-  margin-top: 40px;
+  align-self: center;
+  margin-top: -80px;
 `
 
 export const Image = styled.Image`
@@ -41,15 +46,23 @@ export const CountryText = styled.Text`
   color: rgba(0,0,0,0.7);
   font-family: 'Poppins_500Medium';
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 70px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+`
+
+export const ErrorMessageText = styled.Text`
+  font-size: 17px;
+  color: red;
+  font-family: 'Poppins_300Light';
+  text-align: center;
+  margin-bottom: 5px;
 `
 
 export const Form = styled.View`
   justify-content: center;
-  max-width: 500px;
   width: 100%;
-  margin: 0 auto;
+  max-width: 300px;
+  align-self: center;
 `
 
 export const Row = styled.View`

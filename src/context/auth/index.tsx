@@ -49,6 +49,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const tokenStorage = await AsyncStorage.getItem('token')
 
       if (adminStorage && tokenStorage) {
+        api.defaults.headers.common.authorization = `Bearer ${tokenStorage}`
         setAdmin(JSON.parse(adminStorage))
         setIsLogged(true)
       }

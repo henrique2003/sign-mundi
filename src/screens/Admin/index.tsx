@@ -1,8 +1,9 @@
+import { type RouteProp } from '@react-navigation/native'
 import { type StackNavigationProp } from '@react-navigation/stack'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { useEffect, useState } from 'react'
 
-// import { useAuth } from '../../context/hooks/auth'
+import { useAuth } from '../../context/hooks/auth'
 import api from '../../services/api'
 import { LocalItem, type ILocation } from '../../components'
 import {
@@ -21,17 +22,20 @@ import {
 import { type RootStackParamList } from '../../../App'
 
 type AdminScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Country'>
+type CountryScreenRouteProp = RouteProp<RootStackParamList, 'Admin'>
 
 interface Props {
   navigation: AdminScreenNavigationProp
+  route: CountryScreenRouteProp
 }
 
 const Admin: React.FC<Props> = ({
-  navigation
+  navigation,
+  route: { params }
 }) => {
   const [locations, setLocations] = useState<ILocation[]>([])
 
-  // const { signOut } = useAuth()
+  const { signOut } = useAuth()
 
   useEffect(() => {
     async function loadLocations(): Promise<void> {
@@ -46,9 +50,32 @@ const Admin: React.FC<Props> = ({
     void loadLocations()
   }, [])
 
+  useEffect(() => {
+    const location = params?.location
+    if (!location) return
+
+    let updatedLocs = [] as ILocation[]
+
+    let pushed = false
+    updatedLocs = locations.map((item) => {
+      if (item._id === location._id) {
+        item = location
+      } else {
+        if (!pushed) {
+          updatedLocs.push(location)
+          pushed = true
+        }
+      }
+
+      return item
+    })
+
+    setLocations(updatedLocs)
+  }, [params?.location])
+
   async function handleSignOut(): Promise<void> {
     navigation.navigate('Home')
-    // await signOut()
+    await signOut()
   }
 
   return (

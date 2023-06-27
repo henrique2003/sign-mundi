@@ -15,15 +15,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA6nVrcEeSpUdtcLxWRCGBHZ6yYOZKLMCQ"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleMaps": {
-        "apiKey": "AIzaSyA6nVrcEeSpUdtcLxWRCGBHZ6yYOZKLMCQ"
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA6nVrcEeSpUdtcLxWRCGBHZ6yYOZKLMCQ"
+        }
       },
       "package": "com.company.mapamundilibras"
     },

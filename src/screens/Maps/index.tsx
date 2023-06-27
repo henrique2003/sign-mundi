@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { PROVIDER_GOOGLE } from 'react-native-maps'
 import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { requestForegroundPermissionsAsync } from 'expo-location'
 
 import { Container, ListButton, MapContainer, LoginButton } from './styles'
 import { type ILocation, MapMarker, VideoCountryModal, ListModal, ConnectionErrorModal } from '../../components'
@@ -22,6 +23,7 @@ const Maps: React.FC<Props> = ({
   const [videoModalVisible, setVideoModalVisible] = useState(false)
   const [listModalVisible, setListModalVisible] = useState(false)
   const [currentLocation, setCurrentLocation] = useState<ILocation>({
+    _id: '',
     image: '',
     lati: '',
     link: '',
@@ -31,8 +33,9 @@ const Maps: React.FC<Props> = ({
 
   useEffect(() => {
     async function loadLocations(): Promise<void> {
-      setLoadingStatus(true)
       try {
+        setLoadingStatus(true)
+
         const { data } = await api.get('/locations')
         setLocations(data.locations)
 
@@ -44,6 +47,14 @@ const Maps: React.FC<Props> = ({
       }
     }
 
+    async function getPermission(): Promise<void | null> {
+      const { status } = await requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        return null
+      }
+    }
+
+    void getPermission()
     void loadLocations()
   }, [])
 
@@ -81,9 +92,12 @@ const Maps: React.FC<Props> = ({
       <MapContainer
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: '-13.5857876',
-          longitude: '-50.6026496'
-        }}>
+          latitude: -15.7795,
+          longitude: -47.9297,
+          latitudeDelta: 40,
+          longitudeDelta: 40
+        }}
+      >
         {locations.length > 0 && locations.map((location, index) => (
           <MapMarker
             openModal={openVideoModal}

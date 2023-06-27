@@ -27,7 +27,17 @@ import {
   Poppins_900Black_Italic
 } from '@expo-google-fonts/poppins'
 import theme from './src/theme'
-import { Maps, Login } from './src/pages'
+import { Maps, Login, Admin, Country } from './src/screens'
+import { AuthProvider } from './src/context/auth'
+import { type ILocation } from './src/components'
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type RootStackParamList = {
+  Home: undefined
+  Login: undefined
+  Dasboard: undefined
+  Country: { location: ILocation }
+}
 
 export default function App(): JSX.Element {
   const [fontLoaded] = useFonts({
@@ -51,22 +61,23 @@ export default function App(): JSX.Element {
     Poppins_900Black_Italic
   })
 
-  const Stack = createStackNavigator()
+  const Stack = createStackNavigator<RootStackParamList>()
 
   return (
     <ThemeProvider theme={theme}>
       {fontLoaded
-        ? <>
+        ? <AuthProvider>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{
               headerShown: false
             }}>
               <Stack.Screen name="Home" component={Maps} />
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Contact" component={Maps} />
+              <Stack.Screen name="Dasboard" component={Admin} />
+              <Stack.Screen name="Country" component={Country} />
             </Stack.Navigator>
           </NavigationContainer>
-        </>
+        </AuthProvider>
         : <Text>Loading</Text>}
       <StatusBar backgroundColor='transparent' translucent />
     </ThemeProvider>

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
   flex: 1;
 `
 
@@ -37,7 +37,15 @@ export const Title = styled.Text`
   color: rgba(0,0,0,0.8);
   font-family: 'Poppins_600SemiBold';
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+`
+
+export const ErrorMessageText = styled.Text`
+  font-size: 17px;
+  color: red;
+  font-family: 'Poppins_300Light';
+  text-align: center;
+  margin-bottom: 5px;
 `
 
 export const TextInput = styled.TextInput`

@@ -8,6 +8,7 @@ interface IProps {
 }
 
 export interface ILocation {
+  _id: string
   title: string
   link: string
   image: string

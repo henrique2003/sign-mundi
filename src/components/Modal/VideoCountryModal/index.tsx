@@ -2,8 +2,8 @@ import { useWindowDimensions, Modal, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import { Close, Video, Title, Content } from './styles'
-import { type ILocation } from '../../MapMarker'
 import { useState } from 'react'
+import { type ILocation } from '../../../context/locations/types'
 
 interface Props {
   location: ILocation

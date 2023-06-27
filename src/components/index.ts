@@ -1,4 +1,4 @@
-import MapMarker, { type ILocation } from './MapMarker'
+import MapMarker from './MapMarker'
 import VideoCountryModal from './Modal/VideoCountryModal'
 import ListModal from './Modal/ListModal'
 import ConnectionErrorModal from './Modal/ConnectionErrorModal'
@@ -9,6 +9,5 @@ export {
   VideoCountryModal,
   ListModal,
   ConnectionErrorModal,
-  LocalItem,
-  type ILocation
+  LocalItem
 }

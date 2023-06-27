@@ -32,6 +32,7 @@ export const ImageContainer = styled.View`
   border-radius: 100px;
   background-color: rgba(0,0,0,0.2);
   align-self: center;
+  justify-content: center;
   margin-top: -80px;
 `
 

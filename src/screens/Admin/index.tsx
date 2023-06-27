@@ -1,77 +1,41 @@
-import { type RouteProp } from '@react-navigation/native'
+import { useEffect } from 'react'
 import { type StackNavigationProp } from '@react-navigation/stack'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { useEffect, useState } from 'react'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { useAuth } from '../../context/hooks/auth'
-import api from '../../services/api'
-import { LocalItem, type ILocation } from '../../components'
+import { LocalItem } from '../../components'
 import {
   Actions,
   Container,
   Countrys,
   CountrysText,
+  CreateButton,
   Header,
   Line,
   LogOutButton,
   LogOutIcon,
   LogOutText,
-  MapButton,
-  UserIcon
+  MapButton
 } from './styles'
 import { type RootStackParamList } from '../../../App'
+import { useLocations } from '../../context/hooks/locations'
 
 type AdminScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Country'>
-type CountryScreenRouteProp = RouteProp<RootStackParamList, 'Admin'>
 
 interface Props {
   navigation: AdminScreenNavigationProp
-  route: CountryScreenRouteProp
 }
 
 const Admin: React.FC<Props> = ({
-  navigation,
-  route: { params }
+  navigation
 }) => {
-  const [locations, setLocations] = useState<ILocation[]>([])
-
   const { signOut } = useAuth()
+  const { locations, loadLocations } = useLocations()
 
   useEffect(() => {
-    async function loadLocations(): Promise<void> {
-      try {
-        const { data } = await api.get('/locations')
-
-        setLocations(data.locations)
-      } catch (error) {
-      }
-    }
-
     void loadLocations()
   }, [])
-
-  useEffect(() => {
-    const location = params?.location
-    if (!location) return
-
-    let updatedLocs = [] as ILocation[]
-
-    let pushed = false
-    updatedLocs = locations.map((item) => {
-      if (item._id === location._id) {
-        item = location
-      } else {
-        if (!pushed) {
-          updatedLocs.push(location)
-          pushed = true
-        }
-      }
-
-      return item
-    })
-
-    setLocations(updatedLocs)
-  }, [params?.location])
 
   async function handleSignOut(): Promise<void> {
     navigation.navigate('Home')
@@ -95,9 +59,12 @@ const Admin: React.FC<Props> = ({
           >
             <FontAwesome5 name="map-pin" solid color="rgba(0,0,0,0.7)" size={16} />
           </MapButton>
-          <UserIcon>
-            <FontAwesome5 name="user" solid color="white" size={16} />
-          </UserIcon>
+          <CreateButton
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Create')}
+          >
+            <MaterialCommunityIcons name="map-marker-plus" color="white" size={16} />
+          </CreateButton>
         </Actions>
       </Header>
       <Line />

@@ -1,4 +1,4 @@
-import { type ILocation } from '../MapMarker'
+import { type ILocation } from '../../context/locations/types'
 import { Container, Image, ImageContainer, Text } from './styles'
 
 interface Props {

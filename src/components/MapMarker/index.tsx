@@ -1,19 +1,11 @@
 import { Marker } from 'react-native-maps'
 
 import { Content, Image } from './styles'
+import { type ILocation } from '../../context/locations/types'
 
 interface IProps {
   location: ILocation
   openModal: (location: ILocation) => void
-}
-
-export interface ILocation {
-  _id: string
-  title: string
-  link: string
-  image: string
-  lati: string
-  long: string
 }
 
 const MapMarker: React.FC<IProps> = ({

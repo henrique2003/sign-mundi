@@ -27,15 +27,17 @@ import {
   Poppins_900Black_Italic
 } from '@expo-google-fonts/poppins'
 import theme from './src/theme'
-import { Maps, Login, Admin, Country } from './src/screens'
+import { Maps, Login, Admin, Country, Create } from './src/screens'
 import { AuthProvider } from './src/context/auth'
 import { type ILocation } from './src/components'
+import { LocationProvider } from './src/context/locations'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootStackParamList = {
   Home: undefined
   Login: undefined
-  Admin: { location: ILocation } | undefined
+  Create: undefined
+  Admin: undefined
   Country: { location: ILocation }
 }
 
@@ -67,16 +69,19 @@ export default function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       {fontLoaded
         ? <AuthProvider>
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{
-              headerShown: false
-            }}>
-              <Stack.Screen name="Home" component={Maps} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Admin" component={Admin} />
-              <Stack.Screen name="Country" component={Country} />
-            </Stack.Navigator>
-          </NavigationContainer>
+          <LocationProvider>
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{
+                headerShown: false
+              }}>
+                <Stack.Screen name="Home" component={Maps} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Admin" component={Admin} />
+                <Stack.Screen name="Country" component={Country} />
+                <Stack.Screen name="Create" component={Create} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </LocationProvider>
         </AuthProvider>
         : <Text>Loading</Text>}
       <StatusBar backgroundColor='transparent' translucent />

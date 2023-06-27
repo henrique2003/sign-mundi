@@ -6,8 +6,9 @@ import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { Container, ListButton, MapContainer, LoginButton } from './styles'
-import { type ILocation, MapMarker, VideoCountryModal, ListModal, ConnectionErrorModal } from '../../components'
-import api from '../../services/api'
+import { MapMarker, VideoCountryModal, ListModal, ConnectionErrorModal } from '../../components'
+import { useLocations } from '../../context/hooks/locations'
+import { type ILocation } from '../../context/locations/types'
 
 type MapsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
 
@@ -18,9 +19,6 @@ interface Props {
 const Maps: React.FC<Props> = ({
   navigation
 }) => {
-  const [locations, setLocations] = useState<ILocation[]>([])
-  const [connectionStatus, setConnectionStatus] = useState(false)
-  const [loadingStatus, setLoadingStatus] = useState(true)
   const [videoModalVisible, setVideoModalVisible] = useState(false)
   const [listModalVisible, setListModalVisible] = useState(false)
   const [currentLocation, setCurrentLocation] = useState<ILocation>({
@@ -32,22 +30,14 @@ const Maps: React.FC<Props> = ({
     title: ''
   })
 
+  const {
+    connectionLocStatus,
+    loadLocations,
+    loadingLocStatus,
+    locations
+  } = useLocations()
+
   useEffect(() => {
-    async function loadLocations(): Promise<void> {
-      try {
-        setLoadingStatus(true)
-
-        const { data } = await api.get('/locations')
-        setLocations(data.locations)
-
-        setConnectionStatus(true)
-        setLoadingStatus(false)
-      } catch (error) {
-        setConnectionStatus(false)
-        setLoadingStatus(false)
-      }
-    }
-
     void loadLocations()
   }, [])
 
@@ -118,9 +108,9 @@ const Maps: React.FC<Props> = ({
         <MaterialIcons name="admin-panel-settings" size={30} color="rgba(0,0,0,0.8)" />
       </LoginButton>
       <ConnectionErrorModal
-        connectionStatus={connectionStatus}
-        loadStatus={loadingStatus}
-        modalVisible={!connectionStatus}
+        connectionStatus={connectionLocStatus}
+        loadStatus={loadingLocStatus}
+        modalVisible={!connectionLocStatus}
         handleCloseModal={handleCloseConnectionErrorModal}
       />
     </Container>

@@ -48,7 +48,7 @@ export const MapButton = styled.TouchableOpacity`
   border-radius: 50px;
 `
 
-export const UserIcon = styled.View`
+export const CreateButton = styled.TouchableOpacity`
   background-color: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;

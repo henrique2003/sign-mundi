@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Platform, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
-import { type RouteProp } from '@react-navigation/native'
 import { type StackNavigationProp } from '@react-navigation/stack'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -23,20 +22,18 @@ import {
 } from './styles'
 import { type RootStackParamList } from '../../../App'
 import api from '../../services/api'
+import { validateAllInputs } from '../../utils/valid-empty-inputs'
 import { useLocations } from '../../context/hooks/locations'
 import { type ILocation } from '../../context/locations/types'
 
-type CountryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Country'>
-type CountryScreenRouteProp = RouteProp<RootStackParamList, 'Country'>
+type CreateScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Create'>
 
 interface Props {
-  navigation: CountryScreenNavigationProp
-  route: CountryScreenRouteProp
+  navigation: CreateScreenNavigationProp
 }
 
-const Country: React.FC<Props> = ({
-  navigation,
-  route: { params }
+const Create: React.FC<Props> = ({
+  navigation
 }) => {
   const [loadingStatus, setLoadingStatus] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -46,26 +43,23 @@ const Country: React.FC<Props> = ({
   const [lati, setLati] = useState('')
   const [long, setLong] = useState('')
 
-  const { editLoc } = useLocations()
+  const { createNewLoc } = useLocations()
 
-  useEffect(() => {
-    function handleInputValues(): void {
-      const { location: { image, title, lati, link, long } } = params
-      setTitle(title)
-      setLink(link)
-      setImage(image)
-      setLati(lati)
-      setLong(long)
-    }
-
-    handleInputValues()
-  }, [])
-
-  async function edit(): Promise<void> {
+  async function edit(): Promise<void | null> {
     setLoadingStatus(true)
     try {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      const { data: { location } } = await api.put<{ location: ILocation }>(`/location/edit/${params.location._id}`, {
+      if (!validateAllInputs([
+        title,
+        image,
+        link,
+        lati,
+        long
+      ])) {
+        setErrorMessage('Campo em branco')
+        return
+      }
+
+      const { data: { location } } = await api.post<{ location: ILocation }>('/location/create', {
         title,
         image,
         link,
@@ -73,13 +67,13 @@ const Country: React.FC<Props> = ({
         long
       })
 
-      editLoc(location)
+      createNewLoc(location)
 
       navigation.navigate('Admin')
       setLoadingStatus(false)
     } catch (error) {
-      setErrorMessage('Erro na atualização')
       setLoadingStatus(false)
+      setErrorMessage('Erro ao criar')
     }
   }
 
@@ -95,7 +89,7 @@ const Country: React.FC<Props> = ({
         </GoBack>
         <Content>
           <ImageContainer>
-            <Image source={{ uri: params.location.image }} />
+            <Image source={image.length > 0 ? { uri: image } : require('../../assets/default-country.png')} />
           </ImageContainer>
           <CountryText>{title}</CountryText>
           {errorMessage.length > 0 && <ErrorMessageText>{errorMessage}</ErrorMessageText>}
@@ -157,4 +151,4 @@ const Country: React.FC<Props> = ({
   )
 }
 
-export default Country
+export default Create

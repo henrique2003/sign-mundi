@@ -2,8 +2,8 @@ import { Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 import { Close, Title, Content, Line, Container, Row } from './styles'
-import { type ILocation } from '../../MapMarker'
 import ListItem from './ListItem'
+import { type ILocation } from '../../../context/locations/types'
 
 interface Props {
   locations: ILocation[]

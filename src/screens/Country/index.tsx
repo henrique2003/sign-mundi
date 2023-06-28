@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Platform, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native'
+import { Platform, TouchableWithoutFeedback, Keyboard, ActivityIndicator, Alert } from 'react-native'
 import { type RouteProp } from '@react-navigation/native'
 import { type StackNavigationProp } from '@react-navigation/stack'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import {
   Container,
@@ -19,7 +20,8 @@ import {
   TextInputContainerFlex,
   TextSubmitButton,
   Form,
-  ErrorMessageText
+  ErrorMessageText,
+  DeleteButton
 } from './styles'
 import { type RootStackParamList } from '../../../App'
 import api from '../../services/api'
@@ -38,6 +40,7 @@ const Country: React.FC<Props> = ({
   navigation,
   route: { params }
 }) => {
+  const [isAlertVisible, setAlertVisible] = useState(false)
   const [loadingStatus, setLoadingStatus] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [title, setTitle] = useState('')
@@ -46,7 +49,7 @@ const Country: React.FC<Props> = ({
   const [lati, setLati] = useState('')
   const [long, setLong] = useState('')
 
-  const { editLoc } = useLocations()
+  const { editLoc, deleteLoc } = useLocations()
 
   useEffect(() => {
     function handleInputValues(): void {
@@ -83,6 +86,23 @@ const Country: React.FC<Props> = ({
     }
   }
 
+  async function handleAlert(): Promise<void> {
+    setAlertVisible(true)
+  }
+
+  async function destroy(): Promise<void> {
+    try {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      await api.delete(`/location/${params.location._id}`)
+
+      deleteLoc(params.location._id)
+
+      navigation.navigate('Admin')
+    } catch (error) {
+      setErrorMessage('Erro ao deletar')
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -93,6 +113,12 @@ const Country: React.FC<Props> = ({
           <Ionicons name="chevron-back" color="rgba(0,0,0,0.7)" size={20} />
           <GoBackText>Voltar</GoBackText>
         </GoBack>
+        <DeleteButton
+          activeOpacity={0.6}
+          onPress={async () => await handleAlert()}
+        >
+          <FontAwesome5 name="trash" size={20} color="red" />
+        </DeleteButton>
         <Content>
           <ImageContainer>
             <Image source={{ uri: params.location.image }} />
@@ -152,6 +178,30 @@ const Country: React.FC<Props> = ({
             </SubmitButton>
           </Form>
         </Content>
+        {isAlertVisible &&
+          Alert.alert(
+            'Deletar localização',
+            'Você deseja aceitar ou rejeitar?',
+            [
+              {
+                text: 'Aceitar',
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onPress: async (): Promise<void> => {
+                  setAlertVisible(false)
+                  await destroy()
+                }
+              },
+              {
+                text: 'Rejeitar',
+                onPress: () => {
+                  setAlertVisible(false)
+                },
+                style: 'cancel'
+              }
+            ],
+            { cancelable: true }
+          )
+        }
       </Container>
     </TouchableWithoutFeedback>
   )

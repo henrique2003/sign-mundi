@@ -73,7 +73,9 @@ const Admin: React.FC<Props> = ({
         horizontal
         alwaysBounceHorizontal
         contentContainerStyle={{
-          gap: 15
+          gap: 15,
+          paddingRight: 60,
+          paddingLeft: 40
         }}
         showsHorizontalScrollIndicator={false}
       >

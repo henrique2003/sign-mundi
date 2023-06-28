@@ -3,7 +3,6 @@ import Feather from 'react-native-vector-icons/Feather'
 
 export const Container = styled.View`
   flex: 1;
-  padding: 40px;
   background-color: white;
 `
 
@@ -11,6 +10,8 @@ export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 40px;
+  padding-bottom: 0;
   margin-top: 10px;
 `
 
@@ -60,7 +61,8 @@ export const CreateButton = styled.TouchableOpacity`
 export const Line = styled.View`
   background-color: rgba(0,0,0,0.3);
   align-self: center;
-  margin: 40px auto;
+  margin: 40px;
+  margin-bottom: 30px;
   width: 100%;
   height: 1px;
 `
@@ -69,7 +71,8 @@ export const CountrysText = styled.Text`
   font-size: 20px;
   color: rgba(0,0,0,0.7);
   font-family: 'Poppins_600SemiBold';
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  padding: 0 40px;
 `
 
 export const Countrys = styled.ScrollView`

@@ -8,6 +8,7 @@ export const Container = styled.TouchableOpacity`
   background-color: rgba(0,0,0,0.1);
   padding: 10px 20px;
   max-width: 100px;
+  min-width: 100px;
   width: 100%;
 `
 

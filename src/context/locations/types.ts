@@ -4,7 +4,7 @@ export interface ILocationContextData {
   loadingLocStatus: boolean
   createNewLoc: (newLocation: ILocation) => void
   editLoc: (location: ILocation) => void
-  deleteLoc: (location: ILocation) => void
+  deleteLoc: (id: string) => void
   loadLocations: () => Promise<void>
 }
 

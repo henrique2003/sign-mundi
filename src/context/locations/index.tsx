@@ -26,8 +26,8 @@ export const LocationProvider: React.FC<Props> = ({ children }) => {
     }))
   }
 
-  function deleteLoc(location: ILocation): void {
-    setLocations(locations.filter(item => item._id !== location._id))
+  function deleteLoc(id: string): void {
+    setLocations(locations.filter(item => item._id !== id))
   }
 
   async function loadLocations(): Promise<void> {

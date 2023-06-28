@@ -25,6 +25,16 @@ export const Content = styled.View`
   align-items: center;
 `
 
+export const DeleteButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  margin: 10px 0;
+  margin-right: 20px;
+`
+
 export const ImageContainer = styled.View`
   width: 150px;
   height: 150px;

@@ -21,7 +21,8 @@ import {
   TextSubmitButton,
   Form,
   ErrorMessageText,
-  DeleteButton
+  DeleteButton,
+  ImageContainerOverlay
 } from './styles'
 import { type RootStackParamList } from '../../../App'
 import api from '../../services/api'
@@ -121,7 +122,9 @@ const Country: React.FC<Props> = ({
         </DeleteButton>
         <Content>
           <ImageContainer>
-            <Image source={{ uri: params.location.image }} />
+            <ImageContainerOverlay>
+              <Image source={params.location.image} contentFit="contain" />
+            </ImageContainerOverlay>
           </ImageContainer>
           <CountryText>{title}</CountryText>
           {errorMessage.length > 0 && <ErrorMessageText>{errorMessage}</ErrorMessageText>}

@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar'
-import { Text } from 'react-native'
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -29,8 +28,8 @@ import {
 import theme from './src/theme'
 import { Maps, Login, Admin, Country, Create } from './src/screens'
 import { AuthProvider } from './src/context/auth'
-import { type ILocation } from './src/components'
 import { LocationProvider } from './src/context/locations'
+import { type ILocation } from './src/context/locations/types'
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootStackParamList = {
@@ -67,8 +66,8 @@ export default function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      {fontLoaded
-        ? <AuthProvider>
+      {fontLoaded &&
+        <AuthProvider>
           <LocationProvider>
             <NavigationContainer>
               <Stack.Navigator screenOptions={{
@@ -82,8 +81,7 @@ export default function App(): JSX.Element {
               </Stack.Navigator>
             </NavigationContainer>
           </LocationProvider>
-        </AuthProvider>
-        : <Text>Loading</Text>}
+        </AuthProvider>}
       <StatusBar backgroundColor='transparent' translucent />
     </ThemeProvider>
   )

@@ -1,5 +1,5 @@
 import { type ILocation } from '../../../../context/locations/types'
-import { Container, Image, ImageContainer, Text } from './styles'
+import { Container, Image, ImageContainer, ImageContainerOverlay, Text } from './styles'
 
 interface Props {
   item: ILocation
@@ -18,7 +18,9 @@ const ListItem: React.FC<Props> = ({
       onPress={() => handleOpenVideo(item)}
     >
       <ImageContainer>
-        <Image source={{ uri: image }} />
+        <ImageContainerOverlay>
+          <Image source={image} contentFit="contain" />
+        </ImageContainerOverlay>
       </ImageContainer>
       <Text>{title}</Text>
     </Container>

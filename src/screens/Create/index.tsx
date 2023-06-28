@@ -18,7 +18,8 @@ import {
   TextInputContainerFlex,
   TextSubmitButton,
   Form,
-  ErrorMessageText
+  ErrorMessageText,
+  ImageContainerOverlay
 } from './styles'
 import { type RootStackParamList } from '../../../App'
 import api from '../../services/api'
@@ -89,7 +90,12 @@ const Create: React.FC<Props> = ({
         </GoBack>
         <Content>
           <ImageContainer>
-            <Image source={image.length > 0 ? { uri: image } : require('../../assets/default-country.png')} />
+            <ImageContainerOverlay>
+              <Image
+                source={image.length > 0 ? image : require('../../assets/default-country.png')}
+                contentFit="contain"
+              />
+            </ImageContainerOverlay>
           </ImageContainer>
           <CountryText>{title}</CountryText>
           {errorMessage.length > 0 && <ErrorMessageText>{errorMessage}</ErrorMessageText>}

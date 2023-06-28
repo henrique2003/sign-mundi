@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { Image as ExpoImage } from 'expo-image'
 
 export const Container = styled.TouchableOpacity`
   justify-content: center;
@@ -7,8 +8,7 @@ export const Container = styled.TouchableOpacity`
   border-radius: 10px;
   background-color: rgba(0,0,0,0.1);
   padding: 10px 20px;
-  max-width: 100px;
-  min-width: 100px;
+  width: 200px;
   width: 100%;
 `
 
@@ -21,7 +21,16 @@ export const ImageContainer = styled.View`
   align-items: center;
 `
 
-export const Image = styled.Image`
+export const ImageContainerOverlay = styled.View`
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  background: white;
+  justify-content: center;
+  align-items: center;
+`
+
+export const Image = styled(ExpoImage)`
   width: 35px;
   height: 35px;
   border-radius: 50px;

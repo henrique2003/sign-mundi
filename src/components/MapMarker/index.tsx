@@ -28,7 +28,7 @@ const MapMarker: React.FC<IProps> = ({
     }}
       onPress={() => openModal(location)}>
       <Content>
-        <Image source={{ uri: image }} />
+        <Image source={image} contentFit="contain" />
       </Content>
     </Marker>
   )

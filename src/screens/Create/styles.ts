@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+import { Image as ExpoImage } from 'expo-image'
 
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -36,11 +37,20 @@ export const ImageContainer = styled.View`
   margin-top: -80px;
 `
 
-export const Image = styled.Image`
+export const ImageContainerOverlay = styled.View`
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 100px;
+  background-color: white;
+  align-self: center;
+  justify-content: center;
+`
+
+export const Image = styled(ExpoImage)`
   width: 100%;
   height: 100%;
   border-radius: 100px;
-  object-fit: contain;
 `
 
 export const CountryText = styled.Text`

@@ -25,8 +25,7 @@ const VideoCountryModal: React.FC<Props> = ({
   function getVideoId(link: string): string {
     if (link.length === 0) return ''
 
-    const [, part] = link.split('=')
-    const [videoId] = part.split('&')
+    const [, videoId] = link.split('https://youtu.be/')
 
     return videoId
   }

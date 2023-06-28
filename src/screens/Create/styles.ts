@@ -40,6 +40,7 @@ export const Image = styled.Image`
   width: 100%;
   height: 100%;
   border-radius: 100px;
+  object-fit: contain;
 `
 
 export const CountryText = styled.Text`

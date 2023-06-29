@@ -8,8 +8,7 @@ export const Container = styled.TouchableOpacity`
   border-radius: 10px;
   background-color: rgba(0,0,0,0.1);
   padding: 10px 20px;
-  width: 200px;
-  width: 100%;
+  width: 130px;
 `
 
 export const ImageContainer = styled.View`
@@ -19,6 +18,7 @@ export const ImageContainer = styled.View`
   background: rgba(0,0,0,0.3);
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 `
 
 export const ImageContainerOverlay = styled.View`
@@ -38,7 +38,8 @@ export const Image = styled(ExpoImage)`
 `
 
 export const Text = styled.Text`
-  font-size: 17px;
+  font-size: 16px;
   color: rgba(0,0,0,0.6);
+  text-align: center;
   font-family: 'Poppins_400Regular';
 `

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Sign Mundi",
-    "slug": "Sign Mundi",
+    "slug": "sign-mundi",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -36,14 +36,14 @@
           "apiKey": "AIzaSyA6nVrcEeSpUdtcLxWRCGBHZ6yYOZKLMCQ"
         }
       },
-      "package": "com.company.mapamundilibras"
+      "package": "com.company.signmundi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "9d08cddb-a3f4-4924-b932-75dbfe6e11a8"
+        "projectId": "6a16cb00-661a-4fdf-8577-306ce3c68cf4"
       }
     }
   }

@@ -77,5 +77,5 @@ export const CountrysText = styled.Text`
 
 export const Countrys = styled.ScrollView`
   margin-top: 5px;
-  max-height: 100px;
+  max-height: 120px;
 `

@@ -33,7 +33,8 @@ export const Image = styled(ExpoImage)`
 `
 
 export const Text = styled.Text`
-  font-size: 17px;
+  font-size: 16px;
   color: rgba(0,0,0,0.6);
+  text-align: center;
   font-family: 'Poppins_400Regular';
 `

@@ -31,7 +31,8 @@ const ListModal: React.FC<Props> = ({
         </Close>
         <Container
           contentContainerStyle={{
-            rowGap: 16
+            rowGap: 16,
+            paddingBottom: 20
           }}
         >
           <Title>Lista de países</Title>
